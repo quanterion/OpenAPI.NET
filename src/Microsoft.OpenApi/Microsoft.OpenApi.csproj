@@ -9,7 +9,7 @@
         <Authors>Microsoft</Authors>
         <Company>Microsoft</Company>
         <Title>Microsoft.OpenApi</Title>
-        <PackageId>Microsoft.OpenApi</PackageId>
+        <PackageId>Microsoft.ApiManagement.OpenApi</PackageId>
         <Version>1.2.3</Version>
         <Description>.NET models with JSON and YAML writers for OpenAPI specification</Description>
         <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -23,6 +23,12 @@
     <PropertyGroup>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Microsoft.OpenApi.xml</DocumentationFile>
         <AssemblyOriginatorKeyFile>..\Microsoft.OpenApi.snk</AssemblyOriginatorKeyFile>
+        <PackageReleaseNotes>Forked from: https://github.com/microsoft/OpenAPI.NET
+
+Based on 1.2.3 553061a69b2d8b8b1653f172707409a16f2a9579
+
+Changes:
+- Data type mismatch validation disabled for example, examples, enum, default, e.t.c.</PackageReleaseNotes>
     </PropertyGroup>
     
     <ItemGroup>
