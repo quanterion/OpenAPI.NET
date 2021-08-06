@@ -10,7 +10,7 @@
         <Company>Microsoft</Company>
         <Title>Microsoft.OpenApi</Title>
         <PackageId>Microsoft.ApiManagement.OpenApi</PackageId>
-        <Version>1.2.3</Version>
+        <Version>1.2.4-apim4</Version>
         <Description>.NET models with JSON and YAML writers for OpenAPI specification</Description>
         <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
         <PackageTags>OpenAPI .NET</PackageTags>
@@ -28,7 +28,10 @@
 Based on 1.2.3 553061a69b2d8b8b1653f172707409a16f2a9579
 
 Changes:
-- Data type mismatch validation disabled for example, examples, enum, default, e.t.c.</PackageReleaseNotes>
+- Data type mismatch validation disabled for example, examples, enum, default, e.t.c.
+- OpenApiDate does not serialize time</PackageReleaseNotes>
+        <AssemblyVersion>1.2.3.0</AssemblyVersion>
+        <FileVersion>1.2.3.0</FileVersion>
     </PropertyGroup>
     
     <ItemGroup>

@@ -477,5 +477,37 @@ namespace Microsoft.OpenApi.Tests.Models
             expected = expected.MakeLineBreaksEnvironmentNeutral();
             actual.Should().Be(expected);
         }
+
+        [Fact]
+        public void SerializesDateWithoutTime()
+        {
+            // Arrange
+            var outputStringWriter = new StringWriter(CultureInfo.InvariantCulture);
+            var writer = new OpenApiJsonWriter(outputStringWriter);
+            var expected = @"{
+  ""default"": ""2021-08-06"",
+  ""enum"": [
+    ""2021-08-06""
+  ],
+  ""example"": ""2021-08-06""
+}";
+
+            // Act
+            var date = new OpenApiDate(new DateTime(2021, 8, 6));
+            new OpenApiSchema()
+            {
+                Default = date,
+                Enum = new[] { date },
+                Example = date
+
+            }.SerializeAsV2(writer);
+            writer.Flush();
+            var actual = outputStringWriter.GetStringBuilder().ToString();
+
+            // Assert
+            actual = actual.MakeLineBreaksEnvironmentNeutral();
+            expected = expected.MakeLineBreaksEnvironmentNeutral();
+            actual.Should().Be(expected);
+        }
     }
 }

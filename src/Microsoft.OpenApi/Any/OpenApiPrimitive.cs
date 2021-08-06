@@ -106,7 +106,7 @@ namespace Microsoft.OpenApi.Any
 
                 case PrimitiveType.Date:
                     var dateValue = (OpenApiDate)(IOpenApiPrimitive)this;
-                    writer.WriteValue(dateValue.Value);
+                    writer.WriteValue(dateValue.Value.ToString("yyyy-MM-dd"));
                     break;
 
                 case PrimitiveType.DateTime:
