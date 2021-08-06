@@ -9,7 +9,7 @@
         <Authors>Microsoft</Authors>
         <Company>Microsoft</Company>
         <Title>Microsoft.OpenApi.Readers</Title>
-        <PackageId>Microsoft.OpenApi.Readers</PackageId>
+        <PackageId>Microsoft.ApiManagement.OpenApi.Readers</PackageId>
         <Version>1.2.3</Version>
         <Description>OpenAPI.NET Readers for JSON and YAML documents</Description>
         <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -23,6 +23,12 @@
     <PropertyGroup>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Microsoft.OpenApi.xml</DocumentationFile>
         <AssemblyOriginatorKeyFile>..\Microsoft.OpenApi.snk</AssemblyOriginatorKeyFile>
+        <PackageReleaseNotes>Forked from: https://github.com/microsoft/OpenAPI.NET
+
+Based on 1.2.3 553061a69b2d8b8b1653f172707409a16f2a9579
+
+Changes:
+- OpenApiYamlDocumentReader class made public</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
