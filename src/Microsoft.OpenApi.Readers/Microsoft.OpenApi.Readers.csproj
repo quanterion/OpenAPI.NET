@@ -10,7 +10,7 @@
         <Company>Microsoft</Company>
         <Title>Microsoft.OpenApi.Readers</Title>
         <PackageId>Microsoft.ApiManagement.OpenApi.Readers</PackageId>
-        <Version>1.2.3</Version>
+        <Version>1.2.4-apim4</Version>
         <Description>OpenAPI.NET Readers for JSON and YAML documents</Description>
         <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
         <PackageTags>OpenAPI .NET</PackageTags>
@@ -28,7 +28,10 @@
 Based on 1.2.3 553061a69b2d8b8b1653f172707409a16f2a9579
 
 Changes:
-- OpenApiYamlDocumentReader class made public</PackageReleaseNotes>
+- OpenApiYamlDocumentReader class made public
+- Reading "dddd-dd-dd" as OpenApiDate, rather than OpenApiDateTime, unless schema is specified</PackageReleaseNotes>
+        <AssemblyVersion>1.2.3.0</AssemblyVersion>
+        <FileVersion>1.2.3.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>

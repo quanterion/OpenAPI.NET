@@ -66,6 +66,11 @@ namespace Microsoft.OpenApi.Readers.ParseNodes
                 {
                     if (DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTimeValue))
                     {
+                        if (value.Length <= 10)
+                        {
+                            return new OpenApiDate(dateTimeValue.Date);
+                        }
+
                         return new OpenApiDateTime(dateTimeValue);
                     }
                 }
@@ -150,6 +155,11 @@ namespace Microsoft.OpenApi.Readers.ParseNodes
 
                 if (DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTimeValue))
                 {
+                    if (value.Length <= 10)
+                    {
+                        return new OpenApiDate(dateTimeValue.Date);
+                    }
+
                     return new OpenApiDateTime(dateTimeValue);
                 }
             }

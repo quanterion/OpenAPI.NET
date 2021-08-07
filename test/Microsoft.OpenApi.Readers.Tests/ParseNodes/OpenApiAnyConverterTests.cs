@@ -291,7 +291,7 @@ aDate: 2017-01-02
         aObject:
           aDate: 2017-02-03
         aDouble: 2.34
-        aDateTime: 2017-01-01
+        aDateTime: 2017-01-01T01:01:01Z
                         ";
             var yamlStream = new YamlStream();
             yamlStream.Load(new StringReader(input));
@@ -417,7 +417,7 @@ aDate: 2017-01-02
                         ["aDate"] = new OpenApiString("2017-02-03")
                     },
                     ["aDouble"] = new OpenApiDouble(2.34),
-                    ["aDateTime"] = new OpenApiDateTime(DateTimeOffset.Parse("2017-01-01", CultureInfo.InvariantCulture))
+                    ["aDateTime"] = new OpenApiDateTime(DateTimeOffset.Parse("2017-01-01T01:01:01Z", CultureInfo.InvariantCulture))
                 });
         }
 
@@ -446,7 +446,7 @@ aDate: 2017-01-02
         aObject:
           aDate: 2017-02-03
         aDouble: 2.34
-        aDateTime: 2017-01-01
+        aDateTime: 2017-01-01T01:01:01Z
                         ";
             var yamlStream = new YamlStream();
             yamlStream.Load(new StringReader(input));
@@ -507,10 +507,10 @@ aDate: 2017-01-02
                     },
                     ["aObject"] = new OpenApiObject()
                     {
-                        ["aDate"] = new OpenApiDateTime(DateTimeOffset.Parse("2017-02-03", CultureInfo.InvariantCulture))
+                        ["aDate"] = new OpenApiDate(DateTime.Parse("2017-02-03", CultureInfo.InvariantCulture))
                     },
                     ["aDouble"] = new OpenApiDouble(2.34),
-                    ["aDateTime"] = new OpenApiDateTime(DateTimeOffset.Parse("2017-01-01", CultureInfo.InvariantCulture))
+                    ["aDateTime"] = new OpenApiDateTime(DateTimeOffset.Parse("2017-01-01T01:01:01Z", CultureInfo.InvariantCulture))
                 });
         }
     }
