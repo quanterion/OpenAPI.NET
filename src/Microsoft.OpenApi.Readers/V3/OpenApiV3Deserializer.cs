@@ -176,7 +176,7 @@ namespace Microsoft.OpenApi.Readers.V3
             {
                 return parser(
                     OpenApiAnyConverter.GetSpecificOpenApiAny(node.CreateAny()),
-                    OpenApiSpecVersion.OpenApi3_0);
+                    node.Context.Diagnostic.SpecificationVersion);
             }
             else
             {
