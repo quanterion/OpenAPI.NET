@@ -39,7 +39,3 @@ steps:
     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
     configuration: Release
     msbuildArguments: '/t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Microsoft.OpenApi.Hidi.exe /p:PackageAsSingleFile=true'
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Github'
-  inputs:
-    ArtifactName: Github
