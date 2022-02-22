@@ -38,7 +38,7 @@ steps:
   inputs:
     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
     configuration: Release
-    msbuildArguments: '--runtime win-x64 /t:pack --self-contained /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Github /p:PackageAsSingleFile=true'
+    msbuildArguments: '/t:pack /r win-x64 --self-contained /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Github /p:PackageAsSingleFile=true'
 
 # - task: DotNetCoreCLI@2
 #   inputs:
