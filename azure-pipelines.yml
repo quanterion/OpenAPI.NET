@@ -33,9 +33,19 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: MSBuild@1
-  displayName: 'Pack OpenApi Hidi'
+# - task: MSBuild@1
+#   displayName: 'Pack OpenApi Hidi'
+#   inputs:
+#     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
+#     configuration: Release
+#     msbuildArguments: '/t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Microsoft.OpenApi.Hidi.exe /p:PackageAsSingleFile=true'
+- task: DotNetCoreCLI@2
   inputs:
-    solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
-    configuration: Release
-    msbuildArguments: '/t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Microsoft.OpenApi.Hidi.exe /p:PackageAsSingleFile=true'
+    command: 'publish'
+    arguments: -c Release --runtime win-x64 /p:PublishSingleFile=true --self-contained --output $(Build.ArtifactStagingDirectory) --no-dependencies
+    projects: $(Build.SourcesDirectory)\src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
+    zipAfterPublish: false
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Github'
+  inputs:
+    ArtifactName: Github
