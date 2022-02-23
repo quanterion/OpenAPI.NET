@@ -39,12 +39,20 @@ steps:
 #     platform: '$(buildPlatform)'
 #     configuration: '$(buildConfiguration)'
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+         $xml = [Xml] (Get-Content .\src\Microsoft.OpenApi.Hidi\Microsoft.OpenApi.Hidi.csproj)
+         $version = $xml.Project.PropertyGroup.Version
+         echo $version
+         echo "##vso[task.setvariable variable=version]$version"
 - task: MSBuild@1
   displayName: 'Pack OpenApi Hidi'
   inputs:
     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
     configuration: Release
-    msbuildArguments: '/t:publish /p:OutputPath=$(Build.ArtifactStagingDirectory) /p:RuntimeIdentifier=win-x86 /p:PublishSingleFile=true /p:SelfContained=false /p:PublishTrimmed=true'
+    msbuildArguments: '/t:publish /p:OutputPath=$(Build.ArtifactStagingDirectory)\Microsoft.OpenApi.Hidi-v$(version) /p:RuntimeIdentifier=win-x64 /p:PublishSingleFile=true /p:SelfContained=true /p:PublishTrimmed=true'
 #     # msbuild: /t:publish /p:TargetFramework=net5.0 /p:SelfContained=true /p:PublishTrimmed=True /p:PublishReadyToRun=True /p:RuntimeIdentifier=win-x86  -p:PublishSingleFile=true
 
 # - task: DotNetCoreCLI@2
