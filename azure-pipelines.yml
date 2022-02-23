@@ -58,8 +58,8 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    arguments: -c Release --runtime win-x64 /p:PublishSingleFile=true --self-contained --output $(Build.ArtifactStagingDirectory) --no-dependencies
-    projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
+    arguments: -c Release --runtime win-x64 /p:PublishSingleFile=true --self-contained --output $(Build.ArtifactStagingDirectory)\Microsoft.OpenApi.Hidi-v$(version) --no-dependencies
+    projects: 'src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
     publishWebProjects: False
     zipAfterPublish: false
 
@@ -87,7 +87,6 @@ steps:
 #     projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
 #     zipAfterPublish: false
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Github'
-  inputs:
-    ArtifactName: Github
+  displayName: 'Publish Artifact: Hidi'
+  inputs:    
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
