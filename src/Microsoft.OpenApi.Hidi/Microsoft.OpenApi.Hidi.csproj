@@ -3,7 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <LangVersion>Latest</LangVersion>
     <PackAsTool>true</PackAsTool>
     <PackageIconUrl>http://go.microsoft.com/fwlink/?LinkID=288890</PackageIconUrl>
     <PackageProjectUrl>https://github.com/Microsoft/OpenAPI.NET</PackageProjectUrl>
