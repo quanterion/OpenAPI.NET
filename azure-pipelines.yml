@@ -33,29 +33,36 @@ steps:
 #     platform: '$(buildPlatform)'
 #     configuration: '$(buildConfiguration)'
 
-# - task: MSBuild@1
-#   displayName: 'Pack OpenApi Hidi'
-#   inputs:
-#     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
-#     configuration: Release
-#     msbuildArguments: '/t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Github /p:PackageAsSingleFile=true'
-- task: DotNetCoreCLI@2
-  displayName: Restore
+- task: MSBuild@1
+  displayName: 'Pack OpenApi Hidi'
   inputs:
-    command: restore
-    projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
+    solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
+    configuration: Release
+    msbuildArguments: '/t:pack /p:RuntimeIdentifier=win-x64" /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Github /p:PackageAsSingleFile=true /p:SelfContained=true /p:PublishTrimmed=true'
 
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    arguments: -p:PublishSingleFile=true -r win-x64 -c Release --self-contained true -p:PublishTrimmed=true
-    projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
-    zipAfterPublish: false
+# - task: UseDotNet@2
+#   displayName: 'Use .NET Core sdk'
+#   inputs:
+#     packageType: sdk
+#     version: 6.0.x
+#     installationPath: $(Agent.ToolsDirectory)/dotnet
+# - task: DotNetCoreCLI@2
+#   displayName: Restore
+#   inputs:
+#     command: restore
+#     projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
+
+# - task: DotNetCoreCLI@2
+#   displayName: Build
+#   inputs:
+#     projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
+#     arguments: '--configuration $(buildConfiguration)'
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'publish'
+#     arguments: -p:PublishSingleFile=true -r win-x64 -c Release --self-contained true -p:PublishTrimmed=true
+#     projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
+#     zipAfterPublish: false
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Github'
   inputs:
