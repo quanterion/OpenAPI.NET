@@ -39,20 +39,20 @@ steps:
 #     platform: '$(buildPlatform)'
 #     configuration: '$(buildConfiguration)'
 
-# - task: MSBuild@1
-#   displayName: 'Pack OpenApi Hidi'
-#   inputs:
-#     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
-#     configuration: Release
-#     msbuildArguments: '/t:publish /p:OutputPath=$(Build.ArtifactStagingDirectory) /p:RuntimeIdentifier=win-x86 /p:PublishSingleFile=true /p:SelfContained=true /p:PublishTrimmed=true'
+- task: MSBuild@1
+  displayName: 'Pack OpenApi Hidi'
+  inputs:
+    solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
+    configuration: Release
+    msbuildArguments: '/t:publish /p:OutputPath=$(Build.ArtifactStagingDirectory) /p:RuntimeIdentifier=win-x86 /p:PublishSingleFile=true /p:SelfContained=false /p:PublishTrimmed=true'
 #     # msbuild: /t:publish /p:TargetFramework=net5.0 /p:SelfContained=true /p:PublishTrimmed=True /p:PublishReadyToRun=True /p:RuntimeIdentifier=win-x86  -p:PublishSingleFile=true
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    arguments: -c Release --runtime win-x64 /p:PublishSingleFile=true --self-contained --output $(Build.ArtifactStagingDirectory) --no-dependencies
-    projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
-    zipAfterPublish: false
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'publish'
+#     arguments: -c Release --runtime win-x64 /p:PublishSingleFile=true --self-contained --output $(Build.ArtifactStagingDirectory) --no-dependencies
+#     projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
+#     zipAfterPublish: false
 
 # - task: UseDotNet@2
 #   displayName: 'Use .NET Core sdk'
