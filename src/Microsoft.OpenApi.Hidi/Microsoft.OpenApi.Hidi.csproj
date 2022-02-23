@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <LangVersion>Latest</LangVersion>
     <PackAsTool>true</PackAsTool>
