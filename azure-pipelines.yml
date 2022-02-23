@@ -39,7 +39,17 @@ steps:
 #     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
 #     configuration: Release
 #     msbuildArguments: '/t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Github /p:PackageAsSingleFile=true'
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
 
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '**/src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
