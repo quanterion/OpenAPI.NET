@@ -44,7 +44,9 @@ steps:
   inputs:
     solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
     configuration: Release
-    msbuildArguments: '/t:publish /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /p:RuntimeIdentifier=win-x86 /p:PublishSingleFile=true /p:SelfContained=true /p:PublishTrimmed=true'
+    msbuildArguments: '/t:publish /p:p:PackageLocation=$(Build.ArtifactStagingDirectory) /p:RuntimeIdentifier=win-x86 /p:PublishSingleFile=true /p:SelfContained=true /p:PublishTrimmed=true'
+    # msbuild: /t:publish /p:TargetFramework=net5.0 /p:SelfContained=true /p:PublishTrimmed=True /p:PublishReadyToRun=True /p:RuntimeIdentifier=win-x86  -p:PublishSingleFile=true
+
 
 # - task: UseDotNet@2
 #   displayName: 'Use .NET Core sdk'
