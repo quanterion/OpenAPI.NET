@@ -73,7 +73,7 @@ steps:
     publishWebProjects: False
     zipAfterPublish: false
 
-steps:
+
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)\Application'
   inputs:
