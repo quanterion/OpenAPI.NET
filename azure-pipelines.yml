@@ -17,12 +17,12 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 
-# - task: UseDotNet@2
-#   displayName: 'Use .NET Core sdk'
-#   inputs:
-#     packageType: 'sdk'
-#     version: '6.0.x'
-#     includePreviewVersions: true
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
+    includePreviewVersions: true
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
@@ -40,7 +40,7 @@ steps:
 #     configuration: '$(buildConfiguration)'
 
 - task: PowerShell@2
-  displayName: "Set version-number"
+  displayName: "Set Hidi's version-number"
   inputs:
     targetType: 'inline'
     script: |
@@ -75,4 +75,4 @@ steps:
   displayName: 'Publish Artifact: Hidi'
   inputs: 
     ArtifactName: Microsoft.OpenApi.Hidi-v$(version)   
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+     
