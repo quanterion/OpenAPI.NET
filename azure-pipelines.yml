@@ -73,6 +73,5 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Hidi'
-  inputs: 
-    name: Github
+  inputs:    
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
