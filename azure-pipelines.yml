@@ -68,7 +68,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    arguments: -c Release --runtime win-x64 -p:PublishSingleFile=true -p:PublishReadyToRun --self-contained true --output $(Build.ArtifactStagingDirectory) -p:PublishTrimmed=true
+    arguments: -c Release --runtime win-x64 -p:PublishSingleFile=true -p:PublishReadyToRun --self-contained true --output $(Build.ArtifactStagingDirectory)\Github -p:PublishTrimmed=true
     projects: 'src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
     publishWebProjects: False
     zipAfterPublish: false
@@ -78,7 +78,8 @@ steps:
 #   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)\Application'
 #   inputs:
 #     Contents: |
-#       $(Build.ArtifactStagingDirectory)\Microsoft.OpenApi.Hidi-v$(version)\?(*.exe|*.dll)      
+#       $(Build.ArtifactStagingDirectory)\Github\Microsoft.OpenApi.Hidi-v$(version)\**\*.exe
+#     SourceFolder: '$(Build.ArtifactStagingDirectory)\Github' 
 #     TargetFolder: '$(Build.ArtifactStagingDirectory)\Application'
 
 # - task: PublishBuildArtifacts@1
@@ -89,5 +90,6 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Hidi'
   inputs: 
-    ArtifactName: Microsoft.OpenApi.Hidi-v$(version)   
+    ArtifactName: Microsoft.OpenApi.Hidi-v$(version)  
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Github'
      
