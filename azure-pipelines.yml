@@ -84,11 +84,6 @@ steps:
 #     TargetFolder: '$(Build.ArtifactStagingDirectory)\Application'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Nugets'
-  inputs:
-    ArtifactName: Nugets
-
-- task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Hidi'
   inputs: 
     ArtifactName: Microsoft.OpenApi.Hidi-v$(version)  
