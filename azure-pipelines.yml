@@ -41,7 +41,7 @@ steps:
 
 - task: PowerShell@2
   displayName: "Set version-number"
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/azure-pipelines'))
   inputs:
     targetType: 'inline'
     script: |
@@ -59,12 +59,12 @@ steps:
 #     msbuildArguments: '/t:publish /p:OutputPath=$(Build.ArtifactStagingDirectory)\Microsoft.OpenApi.Hidi-v$(version) /p:RuntimeIdentifier=win-x64 /p:PublishSingleFile=true /p:SelfContained=true /p:PublishTrimmed=true'
 #     # msbuild: /t:publish /p:TargetFramework=net5.0 /p:SelfContained=true /p:PublishTrimmed=True /p:PublishReadyToRun=True /p:RuntimeIdentifier=win-x86  -p:PublishSingleFile=true
 
-- task: ManifestGeneratorTask@0
-  inputs:
-    ManifestDirPath: "$(System.DefaultWorkingDirectory)/_manifest"
-    BuildComponentPath: "$(System.DefaultWorkingDirectory)/build"
-    PackageName: "graph-explorer-v2"
-    PackageVersion: "$(Build.UpdateBuildNumber)"
+# - task: ManifestGeneratorTask@0
+#   inputs:
+#     ManifestDirPath: "$(System.DefaultWorkingDirectory)/_manifest"
+#     BuildComponentPath: "$(System.DefaultWorkingDirectory)/build"
+#     PackageName: "graph-explorer-v2"
+#     PackageVersion: "$(Build.UpdateBuildNumber)"
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
