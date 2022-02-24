@@ -66,7 +66,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    arguments: -c Release --runtime win-x64 /p:PublishSingleFile=true --self-contained true --output $(Build.ArtifactStagingDirectory) -p:PublishTrimmed=true
+    arguments: -c Release --runtime win-x64 /p:PublishSingleFile=true --self-contained true --output $(Build.ArtifactStagingDirectory) -p:PublishTrimmed=false
     projects: 'src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj'
     publishWebProjects: False
     zipAfterPublish: false
