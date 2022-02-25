@@ -65,6 +65,12 @@ steps:
 #     PackageName: "graph-explorer-v2"
 #     PackageVersion: "$(Build.UpdateBuildNumber)"
 
+- task: MSBuild@1
+  displayName: 'Pack OpenApi Hidi'
+  inputs:
+    solution: src/Microsoft.OpenApi.Hidi/Microsoft.OpenApi.Hidi.csproj
+    configuration: Release
+    msbuildArguments: '/t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)/Nugets /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg'
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -82,6 +88,12 @@ steps:
 #       $(Build.ArtifactStagingDirectory)\Github\Microsoft.OpenApi.Hidi-v$(version)\**\*.exe
 #     SourceFolder: '$(Build.ArtifactStagingDirectory)\Github' 
 #     TargetFolder: '$(Build.ArtifactStagingDirectory)\Application'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Package Hidi'
+  inputs: 
+    ArtifactName: Nugets  
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Nugets'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Hidi'
