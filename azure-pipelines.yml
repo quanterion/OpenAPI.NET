@@ -87,5 +87,5 @@ steps:
   displayName: 'Publish Artifact: Hidi'
   inputs: 
     ArtifactName: Microsoft.OpenApi.Hidi-v$(version)  
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'/Github
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Github'
      
