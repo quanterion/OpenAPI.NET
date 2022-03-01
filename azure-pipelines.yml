@@ -67,12 +67,12 @@ stages:
      
 - stage: deploy
 
-  condition: and(contains(variables['build.sourceBranch'], 'refs/heads/vnext'), succeeded())
+  # condition: and(contains(variables['build.sourceBranch'], 'refs/heads/vnext'), succeeded())
   dependsOn: build
 
   jobs:
     - deployment: deploy
-      environment: nuget-org
+      #environment: nuget-org
       strategy:
         runOnce:
           deploy:
@@ -98,12 +98,14 @@ stages:
                 source: current
 
             - task: GitHubRelease@1
-              displayName: 'GitHub release (create)'
+              displayName: 'GitHub release (edit)'
               inputs:
                 gitHubConnection: 'Github-MaggieKimani1'
-                tagSource: userSpecifiedTag
+                repositoryName: MaggieKimani1/OpenAPI.NET
+                action: edit
                 tag: '$(artifactName)'
                 title: '$(artifactName)'
                 releaseNotesSource: inline
                 assets: '$(System.DefaultWorkingDirectory)\**\*.exe'
+                assetUploadMode: replace
                 changeLogType: issueBased
