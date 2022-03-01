@@ -79,22 +79,22 @@ stages:
             pool:
               vmImage: ubuntu-latest
             steps:
-            - powershell: |
-                $url = "$($env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI)$env:SYSTEM_TEAMPROJECTID/_apis/build/builds/$env:BUILD_BUILDID/artifacts?api-version=4.1"
-                Write-Host "URL: $url"
-                $pipeline = Invoke-RestMethod -Uri $url -Headers @{
-                Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"
-                }
-                Write-Host "artifactName:" ($artifactName = $Pipeline.value.name[1])   
-                #Set Variable $artifactName
-                Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
+            # - powershell: |
+            #     $url = "$($env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI)$env:SYSTEM_TEAMPROJECTID/_apis/build/builds/$env:BUILD_BUILDID/artifacts?api-version=4.1"
+            #     Write-Host "URL: $url"
+            #     $pipeline = Invoke-RestMethod -Uri $url -Headers @{
+            #     Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"
+            #     }
+            #     Write-Host "artifactName:" ($artifactName = $Pipeline.value.name[1])   
+            #     #Set Variable $artifactName
+            #     Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
 
-                displayName: 'Fetch Artifact Name'
+            #     displayName: 'Fetch Artifact Name'
 
             - task: DownloadPipelineArtifact@2
               displayName: Download hidi .exe from artifacts
               inputs:
-                artifact: $artifactName
+                artifact: Microsoft.OpenApi.Hidi-v$(version)
                 source: current
 
             - task: GitHubRelease@1
@@ -103,8 +103,8 @@ stages:
                 gitHubConnection: 'Github-MaggieKimani1'
                 repositoryName: MaggieKimani1/OpenAPI.NET
                 action: edit
-                tag: '$(artifactName)'
-                title: '$(artifactName)'
+                tag: 'Microsoft.OpenApi.Hidi-v$(version)'
+                title: 'Microsoft.OpenApi.Hidi-v$(version)'
                 releaseNotesSource: inline
                 assets: '$(System.DefaultWorkingDirectory)\**\*.exe'
                 assetUploadMode: replace
