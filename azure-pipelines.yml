@@ -72,7 +72,7 @@ stages:
 
   jobs:
     - deployment: deploy
-      #environment: nuget-org
+      environment: nuget-org
       strategy:
         runOnce:
           deploy:
