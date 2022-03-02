@@ -95,7 +95,7 @@ stages:
                 #Set Variable $artifactName
                 #Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
 
-                displayName: 'Fetch Hidi Artifact Name'
+                #displayName: 'Fetch Hidi Artifact Name'
 
             - task: DownloadPipelineArtifact@2
               displayName: Download hidi .exe from artifacts
