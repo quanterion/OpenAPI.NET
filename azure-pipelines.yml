@@ -86,12 +86,13 @@ stages:
                 Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"
                 }
                 Write-Host "artifacts:" ($artifacts = $Pipeline.value.name)  
-                foreach($artifactName in $artifacts){
-                  if($artifactName.StartsWith("Microsoft.OpenApi.Hidi")){
-                    WriteHost "hidiArtifact:"($artifactName)
-                    Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-                  }
-                } 
+                # foreach($artifactName in $artifacts){
+                #   if($artifactName.StartsWith("Microsoft.OpenApi.Hidi")){
+                #     WriteHost "hidiArtifact:"($artifactName)
+                #     Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
+                #   }
+                # } 
+                Write-Host "artifact:"($artifacts = $(Pipeline.Workspace))
                 #Set Variable $artifactName
                 #Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
 
