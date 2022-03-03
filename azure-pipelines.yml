@@ -98,11 +98,11 @@ stages:
 
             #     #displayName: 'Fetch Hidi Artifact Name'
 
-            - task: DownloadPipelineArtifact@2
-              displayName: Download hidi .exe from artifacts
-              inputs:
-                artifact: Microsoft.OpenApi.Hidi-v$(version)
-                source: current
+            # - task: DownloadPipelineArtifact@2
+            #   displayName: Download hidi .exe from artifacts
+            #   inputs:
+            #     artifact: $(artifactName)
+            #     source: current
 
             - task: GitHubRelease@1
               displayName: 'GitHub release (edit)'
