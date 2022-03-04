@@ -79,6 +79,13 @@ stages:
             pool:
               vmImage: ubuntu-latest
             steps:
+            - pwsh: |
+                $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
+                $artifactName = $artifactMainDirectory.Name -replace "Microsoft.OpenApi.Hidi-", ""
+                #Set Variable $artifactName
+                Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
+                Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
+              displayName: 'Fetch Artifact Name'
             # - powershell: |
             #     $url = "$($env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI)$env:SYSTEM_TEAMPROJECTID/_apis/build/builds/$env:BUILD_BUILDID/artifacts?api-version=4.1"
             #     Write-Host "URL: $url"
@@ -110,8 +117,8 @@ stages:
                 gitHubConnection: 'Github-MaggieKimani1'
                 repositoryName: MaggieKimani1/OpenAPI.NET
                 action: edit
-                tag: 'Microsoft.OpenApi.Hidi-v$(version)'
-                title: 'Microsoft.OpenApi.Hidi-v$(version)'
+                tag: '$(artifactName)'
+                title: '$(artifactName)'
                 releaseNotesSource: inline
                 assets: '$(System.DefaultWorkingDirectory)\**\*.exe'
                 assetUploadMode: replace
