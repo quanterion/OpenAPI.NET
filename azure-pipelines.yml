@@ -79,7 +79,7 @@ stages:
             pool:
               vmImage: ubuntu-latest
             steps:
-            - pwsh: |
+            - powershell: |
                 $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
                 $artifactName = $artifactMainDirectory.Name -replace "Microsoft.OpenApi.Hidi-", ""
                 #Set Variable $artifactName
