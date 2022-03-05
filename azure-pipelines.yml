@@ -84,8 +84,8 @@ stages:
                 $artifactName = $artifactMainDirectory.Name -replace "Microsoft.OpenApi.Hidi-", ""
                 #Set Variable $artifactName
                 Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-                WriteHost "hidiArtifact:"($artifactName)
-                WriteHost "hidiArtifact:"($artifactMainDirectory.FullName)
+                Write-Host "hidiArtifact:"($artifactName)
+                Write-Host "hidiArtifact:"($artifactMainDirectory.FullName)
                 Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
               displayName: 'Fetch Artifact Name'
             # - powershell: |
