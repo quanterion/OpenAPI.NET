@@ -117,7 +117,7 @@ stages:
                 gitHubConnection: 'Github-MaggieKimani1'
                 repositoryName: MaggieKimani1/OpenAPI.NET
                 action: edit
-                tag: '$(artifactName)'
+                tag: 'Hidi'
                 title: '$(artifactName)'
                 releaseNotesSource: inline
                 assets: '$(System.DefaultWorkingDirectory)\**\*.exe'
