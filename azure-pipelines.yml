@@ -30,14 +30,14 @@ stages:
           restoreSolution: '$(solution)'
 
       - task: PowerShell@2
-        displayName: "Set Hidi's version-number"
+        displayName: "SetHidi'sversion-number"
         inputs:
           targetType: 'inline'
           script: |
               $xml = [Xml] (Get-Content .\src\Microsoft.OpenApi.Hidi\Microsoft.OpenApi.Hidi.csproj)
               $version = $xml.Project.PropertyGroup.Version
               echo $version
-              echo "##vso[task.setvariable variable=version; isOutput=true]$version"          
+              echo "##vso[task.setvariable variable=version; isOutput=true]$version"   
       - task: MSBuild@1
         displayName: 'Pack OpenApi Hidi'
         inputs:
@@ -69,6 +69,9 @@ stages:
 
   # condition: and(contains(variables['build.sourceBranch'], 'refs/heads/vnext'), succeeded())
   dependsOn: build
+  variables:
+    hidiVersion: stageDependencies.build.build.outputs['build.SetHidi'sversion-number.version']
+
 
   jobs:
     - deployment: deploy
@@ -79,12 +82,13 @@ stages:
             pool:
               vmImage: ubuntu-latest
             steps:
+            - script: echo $(version)
             - powershell: |
                 $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
                 $artifactName = $artifactMainDirectory.Name
                 #Set Variable $artifactName
                 Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-                Write-Host "hidiArtifact:"($artifactName)
+                Write-Host "hidiArtifact:"($version)
                 Write-Host "Files:"$(Pipeline.Workspace)
                 Write-Host "hidiArtifact:"($artifactMainDirectory.FullName)
                 Write-Host "hidiArtifact:"($artifactMainDirectory.Name)
