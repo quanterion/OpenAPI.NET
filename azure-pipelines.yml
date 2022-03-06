@@ -30,7 +30,8 @@ stages:
           restoreSolution: '$(solution)'
 
       - task: PowerShell@2
-        displayName: "SetHidi'sversion-number"
+        displayName: "Set Hidi's version-number"
+        name: setCurrProjVersion
         inputs:
           targetType: 'inline'
           script: |
@@ -70,7 +71,7 @@ stages:
   # condition: and(contains(variables['build.sourceBranch'], 'refs/heads/vnext'), succeeded())
   dependsOn: build
   variables:
-    hidiVersion: stageDependencies.build.build.outputs['build.SetHidi'sversion-number.version']
+    hidiVersion: stageDependencies.build.build.outputs['build.setCurrProjVersion.version']
 
 
   jobs:
