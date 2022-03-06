@@ -29,16 +29,17 @@ stages:
         inputs:
           restoreSolution: '$(solution)'
 
-      - task: PowerShell@2
-        displayName: "Set Hidi's version-number"
+      # - task: PowerShell@2
+      #   displayName: "Set Hidi's version-number"
+      #   name: setCurrProjVersion
+      #   inputs:
+      #     targetType: 'inline'
+      - script: |
+          $xml = [Xml] (Get-Content .\src\Microsoft.OpenApi.Hidi\Microsoft.OpenApi.Hidi.csproj)
+          $version = $xml.Project.PropertyGroup.Version
+          echo $version
+          echo "##vso[task.setvariable variable=version; isOutput=true]$version"
         name: setCurrProjVersion
-        inputs:
-          targetType: 'inline'
-          script: |
-              $xml = [Xml] (Get-Content .\src\Microsoft.OpenApi.Hidi\Microsoft.OpenApi.Hidi.csproj)
-              $version = $xml.Project.PropertyGroup.Version
-              echo $version
-              echo "##vso[task.setvariable variable=version; isOutput=true]$version"   
       - task: MSBuild@1
         displayName: 'Pack OpenApi Hidi'
         inputs:
@@ -84,6 +85,8 @@ stages:
               vmImage: ubuntu-latest
             steps:
             - script: echo $(hidiVersion)
+                Write-Host "hidiArtifact:"($hidiVersion)
+
             - powershell: |
                 $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
                 $artifactName = $artifactMainDirectory.Name
