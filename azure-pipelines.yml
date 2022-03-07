@@ -39,6 +39,7 @@ stages:
             $version = $xml.Project.PropertyGroup.Version
             echo $version
             echo "##vso[task.setvariable variable=version; isOutput=true]$version"
+
       - task: MSBuild@1
         displayName: 'Pack OpenApi Hidi'
         inputs:
@@ -87,12 +88,11 @@ stages:
                 Write-Host "hidiArtifact:"($hidiVersion)
 
             - powershell: |
-                $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
-                $artifactName = $artifactMainDirectory.Name
+                $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* | select -First 1
+                $artifactName = $artifactMainDirectory.Name -replace ".zip", ""
                 #Set Variable $artifactName
                 Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
                 Write-Host "hidiArtifact:"($hidiVersion)
-                Write-Host "Files:"$(Pipeline.Workspace)
                 Write-Host "hidiArtifact:"($artifactMainDirectory.FullName)
                 Write-Host "hidiArtifact:"($artifactMainDirectory.Name)
                 Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
