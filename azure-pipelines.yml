@@ -86,37 +86,15 @@ stages:
                 source: current
             - powershell: |
                 $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* | select -First 1
-                $artifactName = $artifactMainDirectory.Name -replace ".zip", ""
+                Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.Name"
+                Write-Host "artifactDirectory: $(artifactMainDirectory.Name)"
+
                 #Set Variable $artifactName
+                $artifactName = $artifactMainDirectory.Name -replace "Microsoft.OpenApi.Hidi-", "" -replace ".zip", ""
                 Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-                Write-Host "artifact: $artifactName"
+                Write-Host "artifactName: $artifactName"
 
-                Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
               displayName: 'Fetch Artifact Name'
-            # - powershell: |
-            #     $url = "$($env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI)$env:SYSTEM_TEAMPROJECTID/_apis/build/builds/$env:BUILD_BUILDID/artifacts?api-version=4.1"
-            #     Write-Host "URL: $url"
-            #     $pipeline = Invoke-RestMethod -Uri $url -Headers @{
-            #     Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"
-            #     }
-            #     Write-Host "artifacts:" ($artifacts = $Pipeline.value.name)  
-            #     # foreach($artifactName in $artifacts){
-            #     #   if($artifactName.StartsWith("Microsoft.OpenApi.Hidi")){
-            #     #     WriteHost "hidiArtifact:"($artifactName)
-            #     #     Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-            #     #   }
-            #     # } 
-            #     Write-Host "artifact:"($artifacts = $(Pipeline.Workspace))
-            #     #Set Variable $artifactName
-            #     #Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-
-            #     #displayName: 'Fetch Hidi Artifact Name'
-
-            # - task: DownloadPipelineArtifact@2
-            #   displayName: Download hidi .exe from artifacts
-            #   inputs:
-            #     artifact: $(artifactName)
-            #     source: current
 
             - task: GitHubRelease@1
               displayName: 'GitHub release (edit)'
@@ -124,8 +102,8 @@ stages:
                 gitHubConnection: 'Github-MaggieKimani1'
                 repositoryName: MaggieKimani1/OpenAPI.NET
                 action: edit
-                tag: 'Hidi'
-                title: '$(artifactName)'
+                tag: $(artifactName)
+                title: 'Microsoft.OpenApi.Hidi-$(artifactName)'
                 releaseNotesSource: inline
                 assets: '$(artifactMainDirectory)\**\*.exe'
                 assetUploadMode: replace
