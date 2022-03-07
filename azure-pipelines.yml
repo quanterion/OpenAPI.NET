@@ -87,7 +87,7 @@ stages:
             - powershell: |
                 $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* | select -First 1
                 Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.Name"
-                Write-Host "artifactDirectory: $(artifactMainDirectory.Name)"
+                Write-Host "artifactDirectory: $(artifactMainDirectory)"
 
                 #Set Variable $artifactName
                 $artifactName = $artifactMainDirectory.Name -replace "Microsoft.OpenApi.Hidi-", "" -replace ".zip", ""
