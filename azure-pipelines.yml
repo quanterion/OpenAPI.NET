@@ -92,9 +92,8 @@ stages:
                 $artifactName = $artifactMainDirectory.Name -replace ".zip", ""
                 #Set Variable $artifactName
                 Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-                Write-Host "hidiArtifact:"($hidiVersion)
-                Write-Host "hidiArtifact:"($artifactMainDirectory.FullName)
-                Write-Host "hidiArtifact:"($artifactMainDirectory.Name)
+                Write-Host "artifact: $artifactName"
+
                 Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
               displayName: 'Fetch Artifact Name'
             # - powershell: |
