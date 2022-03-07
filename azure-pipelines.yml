@@ -123,6 +123,6 @@ stages:
                 tag: 'Hidi'
                 title: '$(artifactName)'
                 releaseNotesSource: inline
-                assets: '$(System.DefaultWorkingDirectory)\**\*.exe'
+                assets: '$(artifactMainDirectory)\**\*.exe'
                 assetUploadMode: replace
                 changeLogType: issueBased
