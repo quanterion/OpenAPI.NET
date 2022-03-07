@@ -81,7 +81,7 @@ stages:
               vmImage: ubuntu-latest
             steps:
             - powershell: |
-                $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse  | select -First 1
+                $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
                 $artifactName = $artifactMainDirectory.Name -replace ".zip", ""
                 #Set Variable $artifactName
                 Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
