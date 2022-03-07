@@ -71,10 +71,6 @@ stages:
 
   # condition: and(contains(variables['build.sourceBranch'], 'refs/heads/vnext'), succeeded())
   dependsOn: build
-  variables:
-    hidiVersion: stageDependencies.build.build.outputs['build.setCurrProjVersion.version']
-
-
   jobs:
     - deployment: deploy
       environment: none
@@ -84,9 +80,6 @@ stages:
             pool:
               vmImage: ubuntu-latest
             steps:
-            - script: echo $(hidiVersion)
-                Write-Host "hidiArtifact:"($hidiVersion)
-
             - powershell: |
                 $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* | select -First 1
                 $artifactName = $artifactMainDirectory.Name -replace ".zip", ""
