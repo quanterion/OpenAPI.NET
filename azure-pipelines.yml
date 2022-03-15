@@ -24,7 +24,11 @@ stages:
         displayName: 'Use .NET 6'
         inputs:
           version: 6.x
-
+      - task: NuGetCommand@2
+        inputs:
+          command: 'restore'
+          restoreSolution: '**/*.sln'
+          
       - task: PowerShell@2
         #displayName: "Set Hidi's version-number"
         name: setCurrProjVersion
@@ -96,6 +100,7 @@ stages:
 
             - task: PowerShell@2
               inputs:
+
                 targetType: 'inline'
                 script: |
                   $artifactMainDirectory = gci -rec                  
