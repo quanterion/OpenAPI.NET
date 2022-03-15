@@ -39,7 +39,7 @@ stages:
             $version = $xml.Project.PropertyGroup.Version
             echo $version
             echo "##vso[task.setvariable variable=version; isOutput=true]$version"
-
+            
       - task: MSBuild@1
         displayName: 'Pack OpenApi Hidi'
         inputs:
@@ -95,6 +95,28 @@ stages:
                   Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
                   Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
               displayName: 'Fetch Artifact Name'
+
+            - task: PowerShell@2
+              inputs:
+                targetType: 'inline'
+                script: |
+                  $artifactMainDirectory = gci -rec                  
+                  
+                  Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
+              displayName: 'Fetch Artifact Name'
+
+            # - powershell: |
+            #       $url = "$($env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI)$env:SYSTEM_TEAMPROJECTID/_apis/build/builds/$env:BUILD_BUILDID/artifacts?api-version=4.1"
+            #       Write-Host "URL: $url"
+            #       $pipeline = Invoke-RestMethod -Uri $url -Headers @{
+            #       Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"
+            #       }
+            #         Write-Host "artifactName:" ($artifactName = $Pipeline.value.name[1])   
+            #       #Set Variable $artifactName
+            #       Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
+            #   displayName: 'Fetch Artifact Name'
+
+
             - task: GitHubRelease@1
               displayName: 'GitHub release (edit)'
               inputs:
