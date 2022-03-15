@@ -28,7 +28,7 @@ stages:
         inputs:
           command: 'restore'
           restoreSolution: '**/*.sln'
-          
+      
       - task: PowerShell@2
         #displayName: "Set Hidi's version-number"
         name: setCurrProjVersion
