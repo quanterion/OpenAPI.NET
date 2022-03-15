@@ -25,8 +25,6 @@ stages:
         inputs:
           version: 6.x
 
-
-
       - task: PowerShell@2
         #displayName: "Set Hidi's version-number"
         name: setCurrProjVersion
@@ -88,8 +86,10 @@ stages:
                 script: |
                   $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
                   $artifactName = $artifactMainDirectory.Name -replace "Microsoft.OpenApi.Hidi-", ""
-                  #Set Variable $artifactName
                   
+                  #Set Variable $artifactName
+                  echo $artifactMainDirectory
+                  echo $artifactName
                   Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
                   Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
               displayName: 'Fetch Artifact Name'
