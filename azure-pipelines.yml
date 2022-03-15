@@ -100,7 +100,7 @@ stages:
               inputs:
                 targetType: 'inline'
                 script: |
-                  $artifactMainDirectory = gci -rec                  
+                  $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse                  
                   
                   Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
               displayName: 'Fetch Artifact Name'
