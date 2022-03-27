@@ -113,6 +113,14 @@ namespace Microsoft.OpenApi.Models
         }
 
         /// <summary>
+        /// Identifies if this reference points to an external fragment of OpenAPI
+        /// </summary>
+        public bool IsFragment { get {
+                return IsExternal && !ReferenceV3.Contains("#/components");
+            }
+        }
+
+        /// <summary>
         /// Serialize <see cref="OpenApiReference"/> to Open Api v3.0.
         /// </summary>
         public void SerializeAsV3(IOpenApiWriter writer)
