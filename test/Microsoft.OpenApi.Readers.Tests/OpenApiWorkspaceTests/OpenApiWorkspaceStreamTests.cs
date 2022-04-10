@@ -52,7 +52,7 @@ paths: {}";
             {
                 LoadExternalRefs = true,
                 CustomExternalLoader = new ResourceLoader(),
-                BaseUrl = new Uri("fie://c:\\")
+                BaseUrl = new Uri("file://c:\\")
             });
 
             ReadResult result;

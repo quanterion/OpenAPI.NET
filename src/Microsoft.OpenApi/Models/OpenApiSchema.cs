@@ -17,67 +17,67 @@ namespace Microsoft.OpenApi.Models
         /// <summary>
         /// Follow JSON Schema definition. Short text providing information about the data.
         /// </summary>
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Value MUST be a string. Multiple types via an array are not supported.
         /// </summary>
-        public string Type { get; set; }
+        public virtual string Type { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// While relying on JSON Schema's defined formats,
         /// the OAS offers a few additional predefined formats.
         /// </summary>
-        public string Format { get; set; }
+        public virtual string Format { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// CommonMark syntax MAY be used for rich text representation.
         /// </summary>
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public decimal? Maximum { get; set; }
+        public virtual decimal? Maximum { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public bool? ExclusiveMaximum { get; set; }
+        public virtual bool? ExclusiveMaximum { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public decimal? Minimum { get; set; }
+        public virtual decimal? Minimum { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public bool? ExclusiveMinimum { get; set; }
+        public virtual bool? ExclusiveMinimum { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public int? MaxLength { get; set; }
+        public virtual int? MaxLength { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public int? MinLength { get; set; }
+        public virtual int? MinLength { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// This string SHOULD be a valid regular expression, according to the ECMA 262 regular expression dialect
         /// </summary>
-        public string Pattern { get; set; }
+        public virtual string Pattern { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public decimal? MultipleOf { get; set; }
+        public virtual decimal? MultipleOf { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
@@ -85,7 +85,7 @@ namespace Microsoft.OpenApi.Models
         /// Unlike JSON Schema, the value MUST conform to the defined type for the Schema Object defined at the same level.
         /// For example, if type is string, then default can be "foo" but cannot be 1.
         /// </summary>
-        public IOpenApiAny Default { get; set; }
+        public virtual IOpenApiAny Default { get; set; }
 
         /// <summary>
         /// Relevant only for Schema "properties" definitions. Declares the property as "read only".
@@ -95,7 +95,7 @@ namespace Microsoft.OpenApi.Models
         /// A property MUST NOT be marked as both readOnly and writeOnly being true.
         /// Default value is false.
         /// </summary>
-        public bool ReadOnly { get; set; }
+        public virtual bool ReadOnly { get; set; }
 
         /// <summary>
         /// Relevant only for Schema "properties" definitions. Declares the property as "write only".
@@ -105,142 +105,142 @@ namespace Microsoft.OpenApi.Models
         /// A property MUST NOT be marked as both readOnly and writeOnly being true.
         /// Default value is false.
         /// </summary>
-        public bool WriteOnly { get; set; }
+        public virtual bool WriteOnly { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Inline or referenced schema MUST be of a Schema Object and not a standard JSON Schema.
         /// </summary>
-        public IList<OpenApiSchema> AllOf { get; set; } = new List<OpenApiSchema>();
+        public virtual IList<OpenApiSchema> AllOf { get; set; } = new List<OpenApiSchema>();
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Inline or referenced schema MUST be of a Schema Object and not a standard JSON Schema.
         /// </summary>
-        public IList<OpenApiSchema> OneOf { get; set; } = new List<OpenApiSchema>();
+        public virtual IList<OpenApiSchema> OneOf { get; set; } = new List<OpenApiSchema>();
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Inline or referenced schema MUST be of a Schema Object and not a standard JSON Schema.
         /// </summary>
-        public IList<OpenApiSchema> AnyOf { get; set; } = new List<OpenApiSchema>();
+        public virtual IList<OpenApiSchema> AnyOf { get; set; } = new List<OpenApiSchema>();
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Inline or referenced schema MUST be of a Schema Object and not a standard JSON Schema.
         /// </summary>
-        public OpenApiSchema Not { get; set; }
+        public virtual OpenApiSchema Not { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public ISet<string> Required { get; set; } = new HashSet<string>();
+        public virtual ISet<string> Required { get; set; } = new HashSet<string>();
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Value MUST be an object and not an array. Inline or referenced schema MUST be of a Schema Object
         /// and not a standard JSON Schema. items MUST be present if the type is array.
         /// </summary>
-        public OpenApiSchema Items { get; set; }
+        public virtual OpenApiSchema Items { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public int? MaxItems { get; set; }
+        public virtual int? MaxItems { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public int? MinItems { get; set; }
+        public virtual int? MinItems { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public bool? UniqueItems { get; set; }
+        public virtual bool? UniqueItems { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Property definitions MUST be a Schema Object and not a standard JSON Schema (inline or referenced).
         /// </summary>
-        public IDictionary<string, OpenApiSchema> Properties { get; set; } = new Dictionary<string, OpenApiSchema>();
+        public virtual IDictionary<string, OpenApiSchema> Properties { get; set; } = new Dictionary<string, OpenApiSchema>();
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public int? MaxProperties { get; set; }
+        public virtual int? MaxProperties { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public int? MinProperties { get; set; }
+        public virtual int? MinProperties { get; set; }
 
         /// <summary>
         /// Indicates if the schema can contain properties other than those defined by the properties map.
         /// </summary>
-        public bool AdditionalPropertiesAllowed { get; set; } = true;
+        public virtual bool AdditionalPropertiesAllowed { get; set; } = true;
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// Value can be boolean or object. Inline or referenced schema
         /// MUST be of a Schema Object and not a standard JSON Schema.
         /// </summary>
-        public OpenApiSchema AdditionalProperties { get; set; }
+        public virtual OpenApiSchema AdditionalProperties { get; set; }
 
 
         /// <summary>
         /// Adds support for polymorphism. The discriminator is an object name that is used to differentiate
         /// between other schemas which may satisfy the payload description.
         /// </summary>
-        public OpenApiDiscriminator Discriminator { get; set; }
+        public virtual OpenApiDiscriminator Discriminator { get; set; }
 
         /// <summary>
         /// A free-form property to include an example of an instance for this schema.
         /// To represent examples that cannot be naturally represented in JSON or YAML,
         /// a string value can be used to contain the example with escaping where necessary.
         /// </summary>
-        public IOpenApiAny Example { get; set; }
+        public virtual IOpenApiAny Example { get; set; }
 
         /// <summary>
         /// Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
         /// </summary>
-        public IList<IOpenApiAny> Enum { get; set; } = new List<IOpenApiAny>();
+        public virtual IList<IOpenApiAny> Enum { get; set; } = new List<IOpenApiAny>();
 
         /// <summary>
         /// Allows sending a null value for the defined schema. Default value is false.
         /// </summary>
-        public bool Nullable { get; set; }
+        public virtual bool Nullable { get; set; }
 
         /// <summary>
         /// Additional external documentation for this schema.
         /// </summary>
-        public OpenApiExternalDocs ExternalDocs { get; set; }
+        public virtual OpenApiExternalDocs ExternalDocs { get; set; }
 
         /// <summary>
         /// Specifies that a schema is deprecated and SHOULD be transitioned out of usage.
         /// Default value is false.
         /// </summary>
-        public bool Deprecated { get; set; }
+        public virtual bool Deprecated { get; set; }
 
         /// <summary>
         /// This MAY be used only on properties schemas. It has no effect on root schemas.
         /// Adds additional metadata to describe the XML representation of this property.
         /// </summary>
-        public OpenApiXml Xml { get; set; }
+        public virtual OpenApiXml Xml { get; set; }
 
         /// <summary>
         /// This object MAY be extended with Specification Extensions.
         /// </summary>
-        public IDictionary<string, IOpenApiExtension> Extensions { get; set; } = new Dictionary<string, IOpenApiExtension>();
+        public virtual IDictionary<string, IOpenApiExtension> Extensions { get; set; } = new Dictionary<string, IOpenApiExtension>();
 
         /// <summary>
         /// Indicates object is a placeholder reference to an actual object and does not contain valid data.
         /// </summary>
-        public bool UnresolvedReference { get; set; }
+        public virtual bool UnresolvedReference { get; set; }
 
         /// <summary>
         /// Reference object.
         /// </summary>
-        public OpenApiReference Reference { get; set; }
+        public virtual OpenApiReference Reference { get; set; }
 
         /// <summary>
         /// Serialize <see cref="OpenApiSchema"/> to Open Api v3.0
