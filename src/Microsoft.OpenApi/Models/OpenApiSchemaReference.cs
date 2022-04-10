@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
+using Microsoft.OpenApi.Writers;
 
 namespace Microsoft.OpenApi.Models
 {
@@ -71,5 +72,31 @@ namespace Microsoft.OpenApi.Models
                 _target = null;
             }
          }
+
+        public override void SerializeAsV3(IOpenApiWriter writer)
+        {
+            if (writer == null)
+            {
+                throw Error.ArgumentNull(nameof(writer));
+            }
+
+            var settings = writer.GetSettings();
+
+            if (!settings.ShouldInlineReference(Reference))
+            {
+                Reference.SerializeAsV3(writer);
+                return;
+            }
+
+            // If Loop is detected then just Serialize as a reference.
+            if (!settings.LoopDetector.PushLoop<OpenApiSchema>(this))
+            {
+                settings.LoopDetector.SaveLoop(this);
+                Reference.SerializeAsV3(writer);
+                return;
+            }
+
+            settings.LoopDetector.PopLoop<OpenApiSchema>();
+        }
     }
 }

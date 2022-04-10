@@ -245,7 +245,7 @@ namespace Microsoft.OpenApi.Models
         /// <summary>
         /// Serialize <see cref="OpenApiSchema"/> to Open Api v3.0
         /// </summary>
-        public void SerializeAsV3(IOpenApiWriter writer)
+        public virtual void SerializeAsV3(IOpenApiWriter writer)
         {
             if (writer == null)
             {
