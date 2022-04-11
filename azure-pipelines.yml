@@ -21,13 +21,16 @@ stages:
     - job: build
       steps:
       - task: UseDotNet@2
-        displayName: 'Use .NET 5'
+        displayName: 'Use .NET 6'
         inputs:
-          version: 5.x
-      - task: NuGetCommand@2
+          version: 6.x
+
+      # Build the Product project
+      - task: DotNetCoreCLI@2
+        displayName: 'build'
         inputs:
-          command: 'restore'
-          restoreSolution: '**/*.sln'
+          projects: '$(Build.SourcesDirectory)\Microsoft.OpenApi.sln'
+          arguments: '--configuration $(BuildConfiguration) --no-incremental'
       
       - task: PowerShell@2
         #displayName: "Set Hidi's version-number"
@@ -88,47 +91,20 @@ stages:
               inputs:
                 targetType: 'inline'
                 script: |
-                  $artifactMainDirectory = Get-ChildItem -Filter Microsoft.OpenApi.Hidi-* -Directory -Recurse | select -First 1
-                  $artifactName = $artifactMainDirectory.Name -replace "Microsoft.OpenApi.Hidi-", ""
-                  
-                  #Set Variable $artifactName
-                  echo $artifactMainDirectory
-                  echo $artifactName
-                  Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
-                  Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
+                  $artifactName = Get-ChildItem -Path $(Pipeline.Workspace)/Nugets -Filter Microsoft.OpenApi.Hidi.*.nupkg -recurse | select -First 1
+                  $artifactVersion= $artifactName -replace "Microsoft.OpenApi.Hidi.", "" -replace ".nupkg", "" 
+                  #Set Variable $artifactName and $artifactVersion
+                  Write-Host "##vso[task.setvariable variable=artifactVersion; isSecret=false; isOutput=true]$artifactVersion"
+                  Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true]$artifactName.FullName"
               displayName: 'Fetch Artifact Name'
-
-            - task: PowerShell@2
-              inputs:
-
-                targetType: 'inline'
-                script: |
-                  $artifactMainDirectory = gci -rec                  
-                  
-                  Write-Host "##vso[task.setvariable variable=artifactMainDirectory; isSecret=false; isOutput=true;]$artifactMainDirectory.FullName"
-              displayName: 'Fetch Artifact Name'
-
-            # - powershell: |
-            #       $url = "$($env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI)$env:SYSTEM_TEAMPROJECTID/_apis/build/builds/$env:BUILD_BUILDID/artifacts?api-version=4.1"
-            #       Write-Host "URL: $url"
-            #       $pipeline = Invoke-RestMethod -Uri $url -Headers @{
-            #       Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"
-            #       }
-            #         Write-Host "artifactName:" ($artifactName = $Pipeline.value.name[1])   
-            #       #Set Variable $artifactName
-            #       Write-Host "##vso[task.setvariable variable=artifactName; isSecret=false; isOutput=true;]$artifactName"
-            #   displayName: 'Fetch Artifact Name'
-
 
             - task: GitHubRelease@1
-              displayName: 'GitHub release (edit)'
+              displayName: 'GitHub release (create)'
               inputs:
                 gitHubConnection: 'Github-MaggieKimani1'
-                repositoryName: MaggieKimani1/OpenAPI.NET
-                action: edit
-                tag: $(artifactName)
-                title: 'Microsoft.OpenApi.Hidi-$(artifactName)'
+                tagSource: userSpecifiedTag
+                tag: '$(artifactVersion)'
+                title: '$(artifactName)'
                 releaseNotesSource: inline
-                assets: '$(artifactMainDirectory)\**\*.exe'
-                assetUploadMode: replace
+                assets: '$(Pipeline.Workspace)\**\*.exe'
                 changeLogType: issueBased
