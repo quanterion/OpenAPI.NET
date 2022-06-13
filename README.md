@@ -1,7 +1,28 @@
 ![Category overview screenshot](docs/images/oainet.png "Microsoft + OpenAPI = Love")
 
-# OpenAPI.NET 
+# APIM
+## OpenApi
+Forked from: https://github.com/microsoft/OpenAPI.NET
 
+Based on 1.2.3 553061a69b2d8b8b1653f172707409a16f2a9579
+
+Changes:
+- Data type mismatch validation disabled for example, examples, enum, default, e.t.c.
+- OpenApiDate does not serialize time
+- (v1.2.4-apim6) added c-style hex notation string support to serialize as a string
+  - '0x1234' will serialize to '0x1234' instead of 0x1234
+
+## OpenApiReader
+Forked from: https://github.com/microsoft/OpenAPI.NET
+
+Based on 1.2.3 553061a69b2d8b8b1653f172707409a16f2a9579
+
+Changes:
+- OpenApiYamlDocumentReader class made public
+- Reading "dddd-dd-dd" as OpenApiDate, rather than OpenApiDateTime, unless schema is specified
+
+
+# OpenAPI.NET 
 |Package|Nuget|
 |--|--|
 |Models and Writers|[![nuget](https://img.shields.io/nuget/v/Microsoft.OpenApi.svg)](https://www.nuget.org/packages/Microsoft.OpenApi/) |
