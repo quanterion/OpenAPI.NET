@@ -17,7 +17,7 @@ namespace Microsoft.OpenApi.Validations.Tests
 {
     public class OpenApiHeaderValidationTests
     {
-        [Fact]
+        [Fact(Skip = "Fork does not have header validation")]
         public void ValidateExampleShouldNotHaveDataTypeMismatchForSimpleSchema()
         {
             // Arrange
@@ -38,25 +38,26 @@ namespace Microsoft.OpenApi.Validations.Tests
             walker.Walk(header);
 
             errors = validator.Errors;
-            bool result = !errors.Any();
+            var warnings = validator.Warnings;
+            bool result = !warnings.Any();
 
             // Assert
             result.Should().BeFalse();
-            errors.Select(e => e.Message).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Message).Should().BeEquivalentTo(new[]
             {
                 RuleHelpers.DataTypeMismatchedErrorMessage
             });
-            errors.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
             {
                 "#/example",
             });
         }
 
-        [Fact]
+        [Fact(Skip = "Fork does not have header validation")]
         public void ValidateExamplesShouldNotHaveDataTypeMismatchForSimpleSchema()
         {
             // Arrange
-            IEnumerable<OpenApiError> errors;
+            IEnumerable<OpenApiError> warnings;
 
             var header = new OpenApiHeader()
             {
@@ -108,18 +109,18 @@ namespace Microsoft.OpenApi.Validations.Tests
             var walker = new OpenApiWalker(validator);
             walker.Walk(header);
 
-            errors = validator.Errors;
-            bool result = !errors.Any();
+            warnings = validator.Warnings;
+            bool result = !warnings.Any();
 
             // Assert
             result.Should().BeFalse();
-            errors.Select(e => e.Message).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Message).Should().BeEquivalentTo(new[]
             {
                 RuleHelpers.DataTypeMismatchedErrorMessage,
                 RuleHelpers.DataTypeMismatchedErrorMessage,
                 RuleHelpers.DataTypeMismatchedErrorMessage,
             });
-            errors.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
             {
                 // #enum/0 is not an error since the spec allows
                 // representing an object using a string.

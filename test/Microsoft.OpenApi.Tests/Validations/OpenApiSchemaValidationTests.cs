@@ -17,11 +17,11 @@ namespace Microsoft.OpenApi.Validations.Tests
     [Collection("DefaultSettings")]
     public class OpenApiSchemaValidationTests
     {
-        [Fact]
+        [Fact(Skip = "Fork does not have schema mismatch validation")]
         public void ValidateDefaultShouldNotHaveDataTypeMismatchForSimpleSchema()
         {
             // Arrange
-            IEnumerable<OpenApiError> errors;
+            IEnumerable<OpenApiError> warnings;
             var schema = new OpenApiSchema()
             {
                 Default = new OpenApiInteger(55),
@@ -33,26 +33,26 @@ namespace Microsoft.OpenApi.Validations.Tests
             var walker = new OpenApiWalker(validator);
             walker.Walk(schema);
 
-            errors = validator.Errors;
-            bool result = !errors.Any();
+            warnings = validator.Warnings;
+            bool result = !warnings.Any();
 
             // Assert
             result.Should().BeFalse();
-            errors.Select(e => e.Message).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Message).Should().BeEquivalentTo(new[]
             {
                 RuleHelpers.DataTypeMismatchedErrorMessage
             });
-            errors.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
             {
                 "#/default",
             });
         }
 
-        [Fact]
+        [Fact(Skip = "Fork does not have schema mismatch validation")]
         public void ValidateExampleAndDefaultShouldNotHaveDataTypeMismatchForSimpleSchema()
         {
             // Arrange
-            IEnumerable<OpenApiError> errors;
+            IEnumerable<OpenApiError> warnings;
             var schema = new OpenApiSchema()
             {
                 Example = new OpenApiLong(55),
@@ -65,28 +65,28 @@ namespace Microsoft.OpenApi.Validations.Tests
             var walker = new OpenApiWalker(validator);
             walker.Walk(schema);
 
-            errors = validator.Errors;
-            bool result = !errors.Any();
+            warnings = validator.Warnings;
+            bool result = !warnings.Any();
 
             // Assert
             result.Should().BeFalse();
-            errors.Select(e => e.Message).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Message).Should().BeEquivalentTo(new[]
             {
                 RuleHelpers.DataTypeMismatchedErrorMessage,
                 RuleHelpers.DataTypeMismatchedErrorMessage
             });
-            errors.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
             {
                 "#/default",
                 "#/example",
             });
         }
 
-        [Fact]
+        [Fact(Skip = "Fork does not have schema mismatch validation")]
         public void ValidateEnumShouldNotHaveDataTypeMismatchForSimpleSchema()
         {
             // Arrange
-            IEnumerable<OpenApiError> errors;
+            IEnumerable<OpenApiError> warnings;
             var schema = new OpenApiSchema()
             {
                 Enum =
@@ -120,18 +120,18 @@ namespace Microsoft.OpenApi.Validations.Tests
             var walker = new OpenApiWalker(validator);
             walker.Walk(schema);
 
-            errors = validator.Errors;
-            bool result = !errors.Any();
+            warnings = validator.Warnings;
+            bool result = !warnings.Any();
 
             // Assert
             result.Should().BeFalse();
-            errors.Select(e => e.Message).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Message).Should().BeEquivalentTo(new[]
             {
                 RuleHelpers.DataTypeMismatchedErrorMessage,
                 RuleHelpers.DataTypeMismatchedErrorMessage,
                 RuleHelpers.DataTypeMismatchedErrorMessage,
             });
-            errors.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
             {
                 // #enum/0 is not an error since the spec allows
                 // representing an object using a string.
@@ -141,11 +141,11 @@ namespace Microsoft.OpenApi.Validations.Tests
             });
         }
 
-        [Fact]
+        [Fact(Skip = "Fork does not have schema mismatch validation")]
         public void ValidateDefaultShouldNotHaveDataTypeMismatchForComplexSchema()
         {
             // Arrange
-            IEnumerable<OpenApiError> errors;
+            IEnumerable<OpenApiError> warnings;
             var schema = new OpenApiSchema()
             {
                 Type = "object",
@@ -210,12 +210,12 @@ namespace Microsoft.OpenApi.Validations.Tests
             var walker = new OpenApiWalker(validator);
             walker.Walk(schema);
 
-            errors = validator.Errors;
-            bool result = !errors.Any();
+            warnings = validator.Warnings;
+            bool result = !warnings.Any();
 
             // Assert
             result.Should().BeFalse();
-            errors.Select(e => e.Message).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Message).Should().BeEquivalentTo(new[]
             {
                 RuleHelpers.DataTypeMismatchedErrorMessage,
                 RuleHelpers.DataTypeMismatchedErrorMessage,
@@ -223,7 +223,7 @@ namespace Microsoft.OpenApi.Validations.Tests
                 RuleHelpers.DataTypeMismatchedErrorMessage,
                 RuleHelpers.DataTypeMismatchedErrorMessage,
             });
-            errors.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
+            warnings.Select(e => e.Pointer).Should().BeEquivalentTo(new[]
             {
                 "#/default/property1/0",
                 "#/default/property1/2",
@@ -267,6 +267,61 @@ namespace Microsoft.OpenApi.Validations.Tests
                         string.Format(SRResource.Validation_SchemaRequiredFieldListMustContainThePropertySpecifiedInTheDiscriminator,
                                     "schema1", "property1"))
             });
+        }
+
+        [Fact]
+        public void ValidateOneOfSchemaPropertyNameContainsPropertySpecifiedInTheDiscriminator()
+        {
+            // Arrange
+            var components = new OpenApiComponents
+            {
+                Schemas = 
+                {
+                    {
+                        "Person",
+                        new OpenApiSchema
+                        {
+                            Type = "array",
+                            Discriminator = new OpenApiDiscriminator
+                            {
+                                PropertyName = "type"
+                            },
+                            OneOf = new List<OpenApiSchema>
+                            {
+                                new OpenApiSchema
+                                {
+                                    Properties =
+                                    {
+                                        {
+                                            "type",
+                                            new OpenApiSchema
+                                            {
+                                                Type = "array"
+                                            }
+                                        }
+                                    },
+                                    Reference = new OpenApiReference
+                                    {
+                                        Type = ReferenceType.Schema,
+                                        Id = "Person"
+                                    }
+                                }
+                            },
+                            Reference = new OpenApiReference { Id = "Person" }
+                        }
+                    }                    
+                }
+            };
+
+            // Act
+            var validator = new OpenApiValidator(ValidationRuleSet.GetDefaultRuleSet());
+            var walker = new OpenApiWalker(validator);
+            walker.Walk(components);
+
+            var errors = validator.Errors;
+
+            //Assert
+            errors.Should().BeEmpty();
         }
     }
 }
