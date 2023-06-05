@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. 
 
+using System;
+
 namespace Microsoft.OpenApi.Writers
 {
     /// <summary>
@@ -42,6 +44,21 @@ namespace Microsoft.OpenApi.Writers
         /// Write the decimal value.
         /// </summary>
         void WriteValue(decimal value);
+
+        /// <summary>
+        /// Write the long value.
+        /// </summary>
+        void WriteValue(long value);
+        
+        /// <summary>
+        /// Write the DateTime value.
+        /// </summary>
+        void WriteValue(DateTime value);
+        
+        /// <summary>
+        /// Write the DateTimeOffset value.
+        /// </summary>
+        void WriteValue(DateTimeOffset value);
 
         /// <summary>
         /// Write the int value.
