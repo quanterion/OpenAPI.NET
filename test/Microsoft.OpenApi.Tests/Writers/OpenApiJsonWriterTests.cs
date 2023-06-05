@@ -8,8 +8,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Tests.Wrappers;
 using Microsoft.OpenApi.Writers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -271,6 +274,45 @@ namespace Microsoft.OpenApi.Tests.Writers
 
             // Assert
             writtenString.Should().Be(expectedString);
+        }
+        
+        [Fact]
+        public void PrimitiveTypeWrite_OutputsInDesiredFormat_WhenIsLongPrimitive()
+        {
+            long value = 12345;
+            var longPrimitive = new OpenApiLong(value);
+
+            var writer = new OpenApiJTokenWriter();
+            longPrimitive.Write(writer, OpenApiSpecVersion.OpenApi3_0);
+
+            var result = writer.Token.ToString();
+            result.Should().Be("12345");
+        }
+        
+        [Fact]
+        public void PrimitiveTypeWrite_OutputsInDesiredFormat_WhenIsDateTimeOffsetPrimitive()
+        {
+            DateTimeOffset now = DateTimeOffset.Parse("2020-10-04T10:41:26");
+            var dateTimePrimitive = new OpenApiDateTime(now);
+
+            var writer = new OpenApiJTokenWriter();
+            dateTimePrimitive.Write(writer, OpenApiSpecVersion.OpenApi3_0);
+
+            var result = writer.Token.ToString();
+            result.Should().Be("2020-10-04T10:41:26");
+        }
+        
+        [Fact]
+        public void PrimitiveTypeWrite_OutputsInDesiredFormat_WhenIsDateTimePrimitive()
+        {
+            DateTime now = DateTime.Parse("2020-10-04");
+            var dateTimePrimitive = new OpenApiDate(now);
+
+            var writer = new OpenApiJTokenWriter();
+            dateTimePrimitive.Write(writer, OpenApiSpecVersion.OpenApi3_0);
+
+            var result = writer.Token.ToString();
+            result.Should().Be("2020-10-04");
         }
     }
 }
