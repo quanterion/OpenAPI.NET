@@ -10,6 +10,7 @@ Changes:
 - Data type mismatch validation disabled for example, examples, enum, default, e.t.c.
 - OpenApiDate does not serialize time
 - Add more primitive types overloads to `IOpenApiWriter`
+- allow to have an empty property names in examples https://github.com/microsoft/OpenAPI.NET/pull/963 
 
 ## OpenApiReader
 Forked from: https://github.com/microsoft/OpenAPI.NET
